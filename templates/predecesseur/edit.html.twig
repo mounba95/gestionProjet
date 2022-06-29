@@ -1,0 +1,143 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Personnes</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/accueil">Accueil</a></li>
+                        <li class="breadcrumb-item active">Personnes</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <!--suppress ALL -->
+    <section class="content">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">Formulaire d'ajout d'une personne</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Nom du predecesseur <span style="color: red;">*</span> :</label>
+                                <div class="select2-purple">
+                                    {{ form_widget(form.nomPredecesseur, {'attr': {'class':'form-control ','placeholder':'Saisir le nom de l\'personne', 'required':true} }) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Tache <span style="color: red;">*</span> :</label>
+                                <div class="select2-purple">
+                                    {{ form_widget(form.taches,{'attr': {'class':'form-control ','placeholder':'Saisir le prenom de l\'personne', 'required':true} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary ">Valider</button>
+                            <a href="{{ path('liste_predecesseur') }}">
+                            <button type="button" class="btn btn-danger ">Annuler</button>
+                            </a>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Liste des personnes</h3>
+                </div>
+                <div class="card-body" style="display: block;">
+                {% for message in app.flashes('desactive') %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %} {% for message in app.flashes('active') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('register') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('suppression') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('notice') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+                    <table id="table_utilisateur" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th class="text-center">Nom du predecesseur</th>
+                            <th class="text-center">Taches</th>
+                   
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for predecesseur in predecesseurs %}
+                            <tr>
+                                <td>{{ predecesseur.id }}</td>
+                                <td>{{ predecesseur.nomPredecesseur }}</td>
+                                <td>{{ predecesseur.taches }}</td>
+                               
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="myModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4><b>Êtes-vous sûr de vouloir supprimer cet personne ?</b></h4>
+                <p>Cette action peut être annulée</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <a  href="" type="button" class="btn btn-danger" id="delRef"><i class="fa fa-trash" aria-hidden="true"></i>Supprimer</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

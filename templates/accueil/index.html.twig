@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<script src="highcharts.js"></script>
+<script src="exporting.js"></script>
+<script src="export-data.js"></script>
+
+
+<div class="card-body">
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+  </div>
+</div>
+  <!-- /.col -->
+  <div class="col-md-6">
+    <div class="form-group">
+<div id="bar" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    </div>
+    <!-- /.form-group -->
+  </div>
+  <!-- /.col -->
+</div>
+
+
+
+
+
+		<script type="text/javascript">
+Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Les pourcentage des visites par type de visite'
+    },
+    tooltip: {
+        pointFormat: '{series.y} {point.percentage:.0f}%</b>'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{series.name} {point.percentage:.0f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    },
+    series: [{
+        name: ' ',
+        colorByPoint: true,
+        data: [
+           
+   ]
+    }]
+});
+
+Highcharts.chart('bar', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Les nombres des visites par service'
+    },
+    xAxis: {
+        type: 'category',
+        labels: {
+            rotation: -45,
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+           
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    tooltip: {
+        pointFormat: 'Nombre des visites: <b>{point.y} </b>'
+    },
+    series: [{
+      
+        data: [
+            
+        ],
+        dataLabels: {
+            enabled: true,
+            rotation: -90,
+            color: '#FFFFFF',
+            align: 'right',
+            format: '{point.y}', // one decimal
+            y: 10, // 10 pixels down from the top
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            }
+        }
+    }]
+});
+		</script>
+
+{% endblock %}
+

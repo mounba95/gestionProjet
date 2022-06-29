@@ -1,0 +1,217 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Tache</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/accueil">Accueil</a></li>
+                        <li class="breadcrumb-item active">Tache</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <!--suppress ALL -->
+    <section class="content">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">Formulaire d'ajout d'une tache</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Nom <span style="color: red;">*</span> :</label>
+                                <div class="select2-purple">
+                                    {{ form_widget(form.nomTache, {'attr': {'class':'form-control ','placeholder':'Saisir le nom de l\'tache', 'required':true} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Taux d'achevement <span style="color: red;">*</span> :</label>
+                                <div class="select2-purple">
+                                    {{ form_widget(form.pourcentageAchever,{'attr': {'class':'form-control ','placeholder':'Saisir le prenom de l\'tache', 'required':true} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-6 col-sm-6 col-xs-6">
+                            {{ form_label(form.datePrevueDebut, "Date Debut de la tache", {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="form-group  form-float">
+                                    <div class="form-line">
+                                        {{ form_widget(form.datePrevueDebut, {'attr': {'class': 'form-control', 'placeholder':'Debut'} }) }}  {# Affichage des erreurs pour ce champ précis. #} {{ form_errors(form.datePrevueDebut)
+                                        }}
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Equipe <span style="color: red;">*</span> :</label>
+                                <div class="select2-purple">
+                                    {{ form_widget(form.equipes, {'attr': {'class':'form-control ','placeholder':'Saisir le numéro de l\'tache', 'required':true} }) }}
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Statues <span style="color: red;">*</span> :</label>
+                                        <div class="select2-purple">
+                                    {{ form_widget(form.statues, {'attr': {'class':'form-control ','placeholder':'Saisir le nom de connexion', 'required':true} }) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-6 col-sm-6 col-xs-6">
+                            {{ form_label(form.datePrevuFin, "Date Fin de la tache", {'label_attr': {'class': 'form-label'}}) }}
+                                <div class="form-group  form-float">
+                                    <div class="form-line">
+                                        {{ form_widget(form.datePrevuFin, {'attr': {'class': 'form-control', 'placeholder':'Fin' } }) }}  {# Affichage des erreurs pour ce champ précis. #} {{ form_errors(form.datePrevuFin)
+                                        }}
+                                    </div>
+                                </div>
+                        </div>
+                     </div>
+                    <div class="col-md-4">
+                        <div class="col-12 col-sm-12">
+                            <div class="form-group">
+                                <label>Projet <span style="color: red;">*</span> :</label>
+                                    <div class="select2-purple">
+                                        {{ form_widget(form.projets, {'attr': {'class':'form-control ','placeholder':'Saisir le nom de connexion', 'required':true} }) }}
+                                    </div>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary ">Valider</button>
+                            <a href="{{ path('liste_tache') }}">
+                            <button type="button" class="btn btn-danger ">Annuler</button>
+                            </a>
+                     </div>
+                
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Liste des Tache</h3>
+                </div>
+                <div class="card-body" style="display: block;">
+                {% for message in app.flashes('desactive') %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %} {% for message in app.flashes('active') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('register') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('suppression') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('notice') %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+                    <table id="table_utilisateur" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th class="text-center">Nom</th>
+                            <th class="text-center">Date debut de la tache</th>
+                            <th class="text-center">Date fin de la tache</th>
+                           
+                            <th class="text-center">Taux d'achevement</th>
+                            <th class="text-center">Projet</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Equipe</th>
+                            <th class="text-center" width="19%" >Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for tache in taches %}
+                            <tr>
+                                <td>{{ tache.id }}</td>
+                                <td>{{ tache.nomTache }}</td>
+                                <td>{{ tache.datePrevueDebut  | date('Y-m-d  H:i:s')}}</td>
+                                <td>{{ tache.datePrevuFin  | date('Y-m-d  H:i:s')}}</td>
+                                <td class="project_progress">
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                        </div>
+                                    </div>
+                                    <small>
+                                        {{  tache.pourcentageAchever}}
+                                    </small>
+                                </td>
+                                <td>{{ tache.projets }}</td>
+                                <td>{{ tache.statues }}</td>
+                                <td>{{ tache.equipes }}</td>
+                                <td class="text-center">
+                                        
+                              <a href="{{ path('delete_tache',{'id':tache.id}) }}" id="delBtn"  data-toggle="modal">
+                                        <button type="button" class="btn btn-outline-danger btn-rounded"><i class="fas fa-trash">Delete</i></button>
+                                    </a>
+
+
+                                       <a href="{{ path('edit_tache',{'id':tache.id}) }}">
+                                        <button type="button" class="btn btn-outline-success btn-rounded"><i class="fas fa-pencil-alt"></i>Edit</i></button>
+                                    </a>
+                            </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="myModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4><b>Êtes-vous sûr de vouloir supprimer cet tache ?</b></h4>
+                <p>Cette action peut être annulée</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <a  href="" type="button" class="btn btn-danger" id="delRef"><i class="fa fa-trash" aria-hidden="true"></i>Supprimer</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
